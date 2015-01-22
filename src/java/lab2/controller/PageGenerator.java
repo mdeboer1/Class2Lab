@@ -34,31 +34,29 @@ public class PageGenerator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            //retrieve the query parameter
+            String color = request.getParameter("color");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet PageGenerator</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Lab 2 tables " + request.getContextPath() + "</h1>");
+            out.print("<h1>Welcome " + firstName + " " + lastName + "</h1>");
+            out.println("<h1 style='color:" + color + "'>Lab 2 tables</h1>");
             out.println("<table border=" + "1 " + "width="+ "400" + ">");
             out.print("<th>Row 1</th>");
             out.print("<th>Row 2</th>");
             out.print("<th>Row 3</th>");
-            out.print("<tr>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
-            out.printf("</tr>");
-            out.print("<tr>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
-            out.printf("</tr>");
-            out.print("<tr>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
-            out.print("<td>Hello</td>");
+            for (int row = 0; row < 3; row++){
+                out.print("<tr>");
+                for (int col = 0; col < 3; col++){
+                    out.print("<td>Hello</td>");
+                }
+                out.print("</tr>");
+            }
             out.printf("</tr>");
             out.print("</table>");
             out.println("</body>");

@@ -11,10 +11,10 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <p><a href="pager">Go to lab 2</a></p>
-        <!--After ? this is a query parameter, is key value set-->
-        <p><a href="pager?color=blue">Go to lab 2b</a></p>
-        <p><a href="lab2/form.html">Go to Lab 2c</a></p>
-        <p><a href="lab4/welcome.html">Go to Welcome Message</a></p>
+        <h1>Welcome Service</h1>
+        <form id="name" name="name" method="POST" action="../greeter">
+            <input type="text" id="name" name="name" value=""/>
+            <input type="submit" name="submit" value="Submit Name"/>
+        </form>
     </body>
 </html>

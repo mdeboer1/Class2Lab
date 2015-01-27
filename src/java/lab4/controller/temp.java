@@ -6,23 +6,47 @@
 package lab4.controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import lab4.model.WelcomeService;
 
 /**
  *
- * @author mdeboer1
+ * @author markr_000
  */
-@WebServlet(name = "MessageController", urlPatterns = {"/greeter"})
-public class MessageController extends HttpServlet {
-    private static final String RESULT_PAGE = "../results.jsp";
-    private static final long serialVersionUID = 1L;
+@WebServlet(name = "temp", urlPatterns = {"/temp"})
+public class temp extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet temp</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet temp at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -34,6 +58,7 @@ public class MessageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -47,17 +72,7 @@ public class MessageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        String name = request.getParameter("name");
-
-        WelcomeService service = new WelcomeService();
-        service.setTimeOfDay();
-        String message = service.generateMessage(name);
-        request.setAttribute("name", message);
-        RequestDispatcher view =
-            request.getRequestDispatcher(RESULT_PAGE);
-        view.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

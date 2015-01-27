@@ -18,11 +18,35 @@ import lab4.model.WelcomeService;
  *
  * @author mdeboer1
  */
-@WebServlet(name = "MessageController", urlPatterns = {"/greeter"})
-public class MessageController extends HttpServlet {
-    private static final String RESULT_PAGE = "../results.jsp";
-    private static final long serialVersionUID = 1L;
+@WebServlet(name = "MessageController2", urlPatterns = {"/greeter2"})
+public class MessageController2 extends HttpServlet {
+    private static final String RESULT_PAGE = "/lab4/results.jsp";
+    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
+        String name = request.getParameter("userName");
+
+        WelcomeService service = new WelcomeService();
+        service.setTimeOfDay();
+        String message = service.generateMessage(name);
+        request.setAttribute("message", message);
+        RequestDispatcher view =
+            request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -34,6 +58,7 @@ public class MessageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -47,17 +72,7 @@ public class MessageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        String name = request.getParameter("name");
-
-        WelcomeService service = new WelcomeService();
-        service.setTimeOfDay();
-        String message = service.generateMessage(name);
-        request.setAttribute("name", message);
-        RequestDispatcher view =
-            request.getRequestDispatcher(RESULT_PAGE);
-        view.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
